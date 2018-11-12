@@ -1,13 +1,20 @@
 {
-  "name": "iwos-scripts",
-  "version": "1.0.0",
+  "name": "iws-scripts",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "rm -rf lib/* && babel src --out-dir lib --copy-files"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HzLinWeiRan/iwos-scripts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HzLinWeiRan/iwos-scripts.git/issues"
+  },
   "bin": {
-    "iwos-scripts": "./lib/bin/cmd"
+    "iws-scripts": "./lib/bin/cmd"
   },
   "author": "",
   "license": "ISC",
