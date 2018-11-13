@@ -5,7 +5,6 @@ const cwdPath = process.cwd()
 // const { rootPath, assetsRoot } = conf
 
 const webpackConfig = {
-    mode: process.env.NODE_ENV,
     entry: {
         app: [path.resolve(cwdPath, 'src/app.js')]
     },

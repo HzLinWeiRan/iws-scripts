@@ -6,6 +6,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import webpackBaseConfig from './webpack.base.conf.js'
 
 const webpackConfig = merge(webpackBaseConfig, {
+    mode: 'development',
     devtool: 'source-map',
     output: {
         publicPath: '/'

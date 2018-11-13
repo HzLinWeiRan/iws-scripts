@@ -4,6 +4,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import webpackBaseConfig  from './webpack.base.conf.js'
 
 const webpackConfig = merge(webpackBaseConfig, {
+    mode: 'production',
     output: {
         filename: 'static/js/[name].[chunkhash:8].js'
     },
