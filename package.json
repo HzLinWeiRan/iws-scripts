@@ -1,10 +1,11 @@
 {
   "name": "iws-scripts",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf lib/* && babel src --out-dir lib --copy-files"
+    "build": "rm -rf lib/* && babel src --out-dir lib --copy-files",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
