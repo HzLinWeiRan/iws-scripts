@@ -25,8 +25,10 @@ const webpackConfig = {
                     {
                         loader: 'eslint-loader',
                         options: {
+                            formatter: require("eslint/lib/formatters/stylish"),
                             formatter: require('eslint-friendly-formatter'), // 配置formatter格式
-                            emitWarning: false
+                            emitWarning: true,
+                            failOnError: false
                         }
                     }
                 ] 
