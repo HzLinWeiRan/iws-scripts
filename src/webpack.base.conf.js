@@ -65,9 +65,9 @@ const webpackConfig = {
                 // more options:
                 // https://github.com/kangax/html-minifier#options-quick-reference
             },
-            title: iwsConfig.title,
-            config: iwsConfig[global.env]
-        })
+            ...iwsConfig.htmlOptionData[global.env]
+        }),
+        new webpackConfig.DefinePlugin(iwsConfig.defineData[global.env])
     ]
 }
 
