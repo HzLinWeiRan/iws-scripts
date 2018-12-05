@@ -10,9 +10,9 @@ const app = new Koa()
 const compiler = webpack(webpackDevConfig);
 // const spinner = ora('Server Starting... ');
 // spinner.start();
-export default async (isHttps) => {
+export default async () => {
     const port = await comparePort(3000)
-    const url = `http${isHttps ? 's' : ''}://localhost:${port}`
+    const url = `http${global.isHttps ? 's' : ''}://localhost:${port}`
     output.clearConsole()
     output.title('info', 'WAIT', 'Start the development server...')
     // handle fallback for HTML5 history API
@@ -39,8 +39,9 @@ export default async (isHttps) => {
             // overlay: true
         }
     })
+
     app.use(middleware)
-    if (isHttps) {
+    if (global.isHttps) {
         const https = require('https')
         const enforceHttps = require('koa-sslify')
         app.use(enforceHttps())

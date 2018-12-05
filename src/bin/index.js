@@ -1,6 +1,4 @@
 import program from 'commander'
-import start from '../start'
-import build from '../build'
 
 program
     .version('0.0.1')
@@ -11,17 +9,22 @@ program
     .command('start')
     .alias('s')
     .option('-s, --https', 'https server')
+    .option('-e, --env', 'environment variable')
     .description('start the development server...')
     .action(function (type, name) {
-        start(type.https)
+        global.env = type.env || 'dev'
+        global.isHttps = type.https
+        require('../start').default()
     });
 
 program
     .command('build')
     .alias('b')
     .description('build for production...')
+    .option('-e, --env', 'environment variable')
     .action(function (type, name) {
-        build()
+        global.env = type.env || 'dev'
+        require('../build').default()
     });
 
 program.parse(process.argv)

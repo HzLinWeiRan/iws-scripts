@@ -4,6 +4,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 const cwdPath = process.cwd()
 // const { rootPath, assetsRoot } = conf
 
+const iwsConfig = require(path.resolve(cwdPath, 'iws.config.js'))
+
 const webpackConfig = {
     entry: {
         app: [path.resolve(cwdPath, 'src/app.js')]
@@ -63,7 +65,8 @@ const webpackConfig = {
                 // more options:
                 // https://github.com/kangax/html-minifier#options-quick-reference
             },
-            title: 'test'
+            title: iwsConfig.title,
+            config: iwsConfig[global.env]
         })
     ]
 }
