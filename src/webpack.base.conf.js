@@ -1,5 +1,6 @@
 import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import webpack from 'webpack'
 
 const cwdPath = process.cwd()
 // const { rootPath, assetsRoot } = conf
@@ -37,7 +38,17 @@ const webpackConfig = {
             },
             {
                 test: /\.(jpe?g|png|gif)$/,
-                exclude: /node_modules/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        name: '[name].[hash:8].[ext]',
+                        outputPath: 'static/assets/',
+                        limit: 1024
+                    }
+                }]
+            },
+            {
+                test: /\.(woff|woff2|svg|ttf|eot)$/,
                 use: [{
                     loader: 'url-loader',
                     options: {
@@ -67,7 +78,7 @@ const webpackConfig = {
             },
             ...iwsConfig.htmlOptionData[global.env]
         }),
-        new webpackConfig.DefinePlugin(iwsConfig.defineData[global.env])
+        new webpack.DefinePlugin(iwsConfig.defineData[global.env])
     ]
 }
 
