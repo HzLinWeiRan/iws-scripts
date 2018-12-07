@@ -14,6 +14,7 @@ program
     .action(function (type, name) {
         global.env = type.env || 'dev'
         global.isHttps = type.https
+        global.cmd = 'start'
         require('../start').default()
     });
 
@@ -24,6 +25,7 @@ program
     .option('-e, --env', 'environment variable')
     .action(function (type, name) {
         global.env = type.env || 'dev'
+        global.cmd = 'build'
         require('../build').default()
     });
 

@@ -1,10 +1,9 @@
 import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import webpack from 'webpack'
+import Handlebars from 'handlebars'
 
 import { loadMinified, handleTemp } from './utils'
-
-const serviceWorkScript = loadMinified(path.resolve(__dirname), 'service-worker-script.js')
 
 const cwdPath = process.cwd()
 // const { rootPath, assetsRoot } = conf
@@ -15,18 +14,30 @@ const { alias, externals } = iwsConfig
 
 const { htmlOptionData, defineData, publicPath } = envData || { publicPath: '/' }
 
+let serviceWorkScript
+if (global.cmd === 'build') {
+    const serviceWork = loadMinified(path.resolve(__dirname, 'service-worker-script.js'))
+    serviceWorkScript = {
+        serviceWorkScript: new Handlebars.SafeString(`<script>${handleTemp(serviceWork, {
+            publicPath
+        })}</script>`)
+    }
+}
+ 
 const webpackConfig = {
-    alias,
+    // alias,
     externals,
     entry: {
         app: [path.resolve(cwdPath, 'src/app.js')]
     },
     output: {
         path: path.resolve(cwdPath, 'dist'),
-        filename: 'static/js/[name].js',
-        publicPath
+        filename: 'static/js/[name].js'
     },
     resolve: {
+        alias: {
+            ...alias
+        },
         extensions: ['.js', '.json']
     },
     module: {
@@ -88,9 +99,7 @@ const webpackConfig = {
                 // https://github.com/kangax/html-minifier#options-quick-reference
             },
             chunksSortMode: 'dependency',
-            serviceWorkScript: `<script>${handleTemp(serviceWorkScript, {
-                publicPath
-            })}</script>`,
+            ...serviceWorkScript,
             ...htmlOptionData
         }),
         new webpack.DefinePlugin(defineData)
