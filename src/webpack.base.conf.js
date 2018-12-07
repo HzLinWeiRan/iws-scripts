@@ -88,9 +88,9 @@ const webpackConfig = {
                 // https://github.com/kangax/html-minifier#options-quick-reference
             },
             chunksSortMode: 'dependency',
-            serviceWorkScript: handleTemp(serviceWorkScript, {
+            serviceWorkScript: `<script>${handleTemp(serviceWorkScript, {
                 publicPath
-            }),
+            })}</script>`,
             ...htmlOptionData
         }),
         new webpack.DefinePlugin(defineData)
