@@ -7,9 +7,6 @@ import webpackBaseConfig from './webpack.base.conf.js'
 const webpackConfig = merge(webpackBaseConfig, {
     mode: 'development',
     devtool: 'source-map',
-    output: {
-        publicPath: '/'
-    },
     module: {
         rules: [{
             test: /\.s?css$/,

@@ -2,21 +2,32 @@ import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import webpack from 'webpack'
 
+import { loadMinified, handleTemp } from './utils'
+
+const serviceWorkScript = loadMinified(path.resolve(__dirname), 'service-worker-script.js')
+
 const cwdPath = process.cwd()
 // const { rootPath, assetsRoot } = conf
 
 const iwsConfig = require(path.resolve(cwdPath, 'iws.config.js'))
+const envData = iwsConfig[global.env]
+const { alias, externals } = iwsConfig
+
+const { htmlOptionData, defineData, publicPath } = envData || { publicPath: '/' }
 
 const webpackConfig = {
+    alias,
+    externals,
     entry: {
         app: [path.resolve(cwdPath, 'src/app.js')]
     },
     output: {
         path: path.resolve(cwdPath, 'dist'),
-        filename: 'static/js/[name].js'
+        filename: 'static/js/[name].js',
+        publicPath
     },
     resolve: {
-      extensions: ['.js', '.json']
+        extensions: ['.js', '.json']
     },
     module: {
         rules: [
@@ -76,9 +87,13 @@ const webpackConfig = {
                 // more options:
                 // https://github.com/kangax/html-minifier#options-quick-reference
             },
-            ...iwsConfig.htmlOptionData[global.env]
+            chunksSortMode: 'dependency',
+            serviceWorkScript: handleTemp(serviceWorkScript, {
+                publicPath
+            }),
+            ...htmlOptionData
         }),
-        new webpack.DefinePlugin(iwsConfig.defineData[global.env])
+        new webpack.DefinePlugin(defineData)
     ]
 }
 
