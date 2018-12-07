@@ -63,8 +63,7 @@ const webpackConfig = {
                 use: [{
                     loader: 'url-loader',
                     options: {
-                        name: '[name].[hash:8].[ext]',
-                        outputPath: 'static/assets/',
+                        name: '/static/img/[name].[hash:8].[ext]',
                         limit: 1024
                     }
                 }]
@@ -74,8 +73,7 @@ const webpackConfig = {
                 use: [{
                     loader: 'url-loader',
                     options: {
-                        name: '[name].[hash:8].[ext]',
-                        outputPath: 'static/assets/',
+                        name: '/static/fonts/[name].[hash:8].[ext]',
                         limit: 1024
                     }
                 }]
