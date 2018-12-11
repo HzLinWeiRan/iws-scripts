@@ -2,7 +2,7 @@
     'use strict';
 
     // 查看你的地址是否支持pwa
-    var isLocalhost = Boolean(window.location.hostname === 'localhost' ||
+    const isLocalhost = Boolean(window.location.hostname === 'localhost' ||
         // [::1] is the IPv6 localhost address.
         window.location.hostname === '[::1]' ||
         // 127.0.0.1/8 is considered localhost for IPv4.
@@ -14,7 +14,7 @@
     window.addEventListener('load', function () {
         if ('serviceWorker' in navigator &&
             (window.location.protocol === 'https:' || isLocalhost)) {
-            navigator.serviceWorker.register('{{publicPath}}service-worker.js')
+            navigator.serviceWorker.register(`${process.publicPath}/service-worker.js`)
                 .then(function (registration) {
                     // 更新时发现文件变更从service-work中移除
                     registration.onupdatefound = function () {
@@ -24,7 +24,7 @@
                         // i.e. whether there's an existing service worker.
                         if (navigator.serviceWorker.controller) {
                             // The updatefound event implies that registration.installing is set
-                            var installingWorker = registration.installing;
+                            const installingWorker = registration.installing;
 
                             installingWorker.onstatechange = function () {
                                 switch (installingWorker.state) {

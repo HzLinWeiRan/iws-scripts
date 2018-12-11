@@ -1,38 +1,47 @@
 import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import webpack from 'webpack'
-import Handlebars from 'handlebars'
-
-import { loadMinified, handleTemp } from './utils'
 
 const cwdPath = process.cwd()
 // const { rootPath, assetsRoot } = conf
 
 const iwsConfig = require(path.resolve(cwdPath, 'iws.config.js'))
 const envData = iwsConfig[global.env]
-const { alias, externals } = iwsConfig
+const { alias, externals, isEslint } = iwsConfig
 
-const { htmlOptionData, defineData, publicPath } = envData || { publicPath: '/' }
+const { htmlOptionData={}, defineData={}, publicPath='/' } = envData || {}
 
-let serviceWorkScript
-if (global.cmd === 'build') {
-    const serviceWork = loadMinified(path.resolve(__dirname, 'service-worker-script.js'))
-    serviceWorkScript = {
-        serviceWorkScript: new Handlebars.SafeString(`<script>${handleTemp(serviceWork, {
-            publicPath
-        })}</script>`)
+const eslintLoader = isEslint ? [
+    {
+        loader: 'eslint-loader',
+        options: {
+            formatter: require("eslint/lib/formatters/stylish"),
+            formatter: require('eslint-friendly-formatter'), // 配置formatter格式
+            fix: true,
+            emitWarning: true,
+            failOnError: false
+        }
     }
+] : []
+
+let serviceWorkScript = []
+if (global.cmd === 'build') {
+    serviceWorkScript = [path.resolve(cwdPath, 'src/service-worker-register.js')]
 }
  
 const webpackConfig = {
     // alias,
     externals,
     entry: {
-        app: [path.resolve(cwdPath, 'src/app.js')]
+        app: [
+            ...serviceWorkScript,
+            path.resolve(cwdPath, 'src/app.js')
+        ]
     },
     output: {
         path: path.resolve(cwdPath, 'dist'),
-        filename: 'static/js/[name].js'
+        filename: 'static/js/[name].js',
+        publicPath
     },
     resolve: {
         alias: {
@@ -47,15 +56,7 @@ const webpackConfig = {
                 exclude: /node_modules/,
                 use: [
                     'babel-loader',
-                    {
-                        loader: 'eslint-loader',
-                        options: {
-                            formatter: require("eslint/lib/formatters/stylish"),
-                            formatter: require('eslint-friendly-formatter'), // 配置formatter格式
-                            emitWarning: true,
-                            failOnError: false
-                        }
-                    }
+                    ...eslintLoader
                 ] 
             },
             {
@@ -97,10 +98,14 @@ const webpackConfig = {
                 // https://github.com/kangax/html-minifier#options-quick-reference
             },
             chunksSortMode: 'dependency',
-            ...serviceWorkScript,
             ...htmlOptionData
         }),
-        new webpack.DefinePlugin(defineData)
+        new webpack.DefinePlugin({
+            config: JSON.stringify({
+                publicPath
+            }),
+            ...defineData,
+        })
     ]
 }
 
