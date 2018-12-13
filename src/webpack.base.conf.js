@@ -7,9 +7,13 @@ const cwdPath = process.cwd()
 
 const iwsConfig = require(path.resolve(cwdPath, 'iws.config.js'))
 const envData = iwsConfig[global.env]
+const defaultData = iwsConfig['default'] || {}
 const { alias, externals, isEslint } = iwsConfig
 
-const { htmlOptionData={}, defineData={}, publicPath='/' } = envData || {}
+const { htmlOptionData={}, defineData={}, provideData={}, publicPath='/' } = {
+    ...defaultData,
+    ...envData
+}
 
 const eslintLoader = isEslint ? [
     {
@@ -100,11 +104,10 @@ const webpackConfig = {
             chunksSortMode: 'dependency',
             ...htmlOptionData
         }),
+        new webpack.ProvidePlugin(provideData),
         new webpack.DefinePlugin({
-            config: JSON.stringify({
-                publicPath
-            }),
-            ...defineData,
+            publicPath: JSON.stringify(publicPath),
+            ...defineData
         })
     ]
 }
