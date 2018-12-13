@@ -61,7 +61,8 @@ const webpackConfig = merge(webpackBaseConfig, {
         moduleIds: 'hashed',
         nodeEnv: 'production',
         splitChunks: {
-            chunks: 'initial',
+            chunks: 'all',
+            minChunks: 2,
             cacheGroups: {
                 vendor: {
                     name: 'vendor',
