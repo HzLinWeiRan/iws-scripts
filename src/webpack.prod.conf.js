@@ -3,6 +3,8 @@ import merge from 'webpack-merge'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 // import SWPrecacheWebpackPlugin from 'sw-precache-webpack-plugin'
 import WorkboxWebpackPlugin from 'workbox-webpack-plugin'
+import FilterWarningsPlugin from 'webpack-filter-warnings-plugin'
+
 // import SwRegisterWebpackPlugin from 'sw-register-webpack-plugin'
 
 import webpackBaseConfig  from './webpack.base.conf.js'
@@ -51,6 +53,9 @@ const webpackConfig = merge(webpackBaseConfig, {
             clientsClaim: true,
             skipWaiting: true,
         }),
+        new FilterWarningsPlugin({
+            exclude: /mini-css-extract-plugin/
+        })
         // new SwRegisterWebpackPlugin({
         //     filename: path.resolve(__dirname, './service-worker-script.js')
         // }),
@@ -68,6 +73,8 @@ const webpackConfig = merge(webpackBaseConfig, {
                     name: 'vendor',
                     test: /[\\/]node_modules[\\/]/,
                     reuseExistingChunk: true,
+                    priority: -10,
+                    enforce: true
                 }
             }
         },

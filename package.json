@@ -1,6 +1,6 @@
 {
   "name": "iws-scripts",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -70,6 +70,7 @@
     "uglify-es": "^3.3.9",
     "url-loader": "^1.1.2",
     "webpack": "^4.23.1",
+    "webpack-filter-warnings-plugin": "^1.2.1",
     "webpack-merge": "^4.1.4",
     "workbox-webpack-plugin": "^3.6.3"
   },
