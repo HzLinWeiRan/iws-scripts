@@ -24,7 +24,7 @@ program
     .description('build for production...')
     .option('-e, --env', 'environment variable')
     .action(function (type, name) {
-        global.env = type.env || 'dev'
+        global.env = type || 'dev'
         global.cmd = 'build'
         require('../build').default()
     });
