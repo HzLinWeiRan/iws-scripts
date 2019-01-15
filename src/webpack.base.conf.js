@@ -74,7 +74,7 @@ const webpackConfig = {
                 }]
             },
             {
-                test: /\.(woff|woff2|svg|ttf|eot)$/,
+                test: /\.(woff|woff2|svg|ttf|eot|mp3)$/,
                 use: [{
                     loader: 'url-loader',
                     options: {
