@@ -8,9 +8,18 @@ const cwdPath = process.cwd()
 const iwsConfig = require(path.resolve(cwdPath, 'iws.config.js'))
 const envData = iwsConfig[global.env]
 const defaultData = iwsConfig['default'] || {}
-const { alias, externals, isEslint } = iwsConfig
+// const { alias, externals, isEslint } = iwsConfig
 
-const { htmlOptionData={}, defineData={}, provideData={}, publicPath='/' } = {
+const {
+    htmlOptionData={},
+    defineData={},
+    provideData={},
+    publicPath='/',
+    alias={},
+    externals={},
+    rules=[],
+    isEslint
+} = {
     ...defaultData,
     ...envData
 }
@@ -48,15 +57,13 @@ const webpackConfig = {
         publicPath
     },
     resolve: {
-        alias: {
-            ...alias
-        },
-        extensions: ['.js', '.json']
+        alias,
+        extensions: ['.js', '.jsx', '.json']
     },
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: [
                     'babel-loader',
@@ -86,7 +93,8 @@ const webpackConfig = {
             {
                 test: /\.hbs$/,
                 use: 'handlebars-loader'
-            }
+            },
+            ...rules
         ]
     },
     plugins: [
