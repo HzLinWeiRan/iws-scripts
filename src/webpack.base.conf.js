@@ -95,13 +95,7 @@ const webpackConfig = {
                 test: /\.hbs$/,
                 use: 'handlebars-loader'
             },
-            {
-                test: /\.(js|jsx)$/,
-                include: /node_modules\/element-react/,
-                use: [
-                    'babel-loader'
-                ] 
-            }
+            ...rules
         ]
     },
     plugins: [
