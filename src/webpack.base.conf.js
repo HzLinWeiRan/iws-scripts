@@ -18,7 +18,7 @@ const {
     alias={},
     externals={},
     rules=[],
-    isEslint
+    isEslint=false
 } = {
     ...defaultData,
     ...envData
@@ -65,6 +65,7 @@ const webpackConfig = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
+                include: /src/,
                 use: [
                     'babel-loader',
                     ...eslintLoader
@@ -94,7 +95,13 @@ const webpackConfig = {
                 test: /\.hbs$/,
                 use: 'handlebars-loader'
             },
-            ...rules
+            {
+                test: /\.(js|jsx)$/,
+                include: /node_modules\/element-react/,
+                use: [
+                    'babel-loader'
+                ] 
+            }
         ]
     },
     plugins: [

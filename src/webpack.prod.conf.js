@@ -19,6 +19,7 @@ const webpackConfig = merge(webpackBaseConfig, {
     module: {
         rules: [{
             test: /\.s?css$/,
+            include: /(node_modules|src)/,
             use: [
                 MiniCssExtractPlugin.loader,
                 'css-loader',
