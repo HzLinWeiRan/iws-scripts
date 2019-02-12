@@ -18,7 +18,9 @@ const {
     alias={},
     externals={},
     rules=[],
-    isEslint=false
+    isEslint=false,
+    entry,
+    serviceWorkFile
 } = {
     ...defaultData,
     ...envData
@@ -39,7 +41,7 @@ const eslintLoader = isEslint ? [
 
 let serviceWorkScript = []
 if (global.cmd === 'build') {
-    serviceWorkScript = [path.resolve(cwdPath, 'src/service-worker-register.js')]
+    serviceWorkScript = [path.resolve(cwdPath, serviceWorkFile || 'src/service-worker-register.js')]
 }
  
 const webpackConfig = {
@@ -48,7 +50,7 @@ const webpackConfig = {
     entry: {
         app: [
             ...serviceWorkScript,
-            path.resolve(cwdPath, 'src/app.js')
+            path.resolve(cwdPath, entry || 'src/app.js')
         ]
     },
     output: {
@@ -58,7 +60,7 @@ const webpackConfig = {
     },
     resolve: {
         alias,
-        extensions: ['.js', '.jsx', '.json']
+        extensions: ['.js', '.jsx', '.ts', 'tsx', '.json']
     },
     module: {
         rules: [
