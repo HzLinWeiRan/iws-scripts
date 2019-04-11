@@ -9,7 +9,7 @@ const spinner = ora('build for production... ')
 
 export default () => {
     spinner.start()
-    rm(path.join(process.cwd(), 'dist/static'), err => {
+    rm(path.join(process.cwd(), 'dist'), err => {
         if (err) throw err
         webpack(webpackProdConf, (err, stats) => {
             spinner.stop()
