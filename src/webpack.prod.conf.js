@@ -44,9 +44,10 @@ const webpackConfig = merge(webpackBaseConfig, {
         // }),
         new WorkboxWebpackPlugin.GenerateSW({
             cacheId: 'iws-pwa',
-            // importWorkboxFrom: 'local',
+            importWorkboxFrom: 'local',
             // importsDirectory: path.resolve(cwdPath, 'dist'),
-            importsDirectory: path.resolve(cwdPath, 'dist'),
+            // importsDirectory: path.resolve(cwdPath, 'dist'),
+            importsDirectory: 'assets',
             include: [/.(js|css)/],
             exclude: [/service-wroker\.js/, /index\.html/],
             swDest: path.resolve(cwdPath, 'dist/service-worker.js'),
