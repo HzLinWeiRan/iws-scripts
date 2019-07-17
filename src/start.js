@@ -1,13 +1,20 @@
 import webpack from 'webpack'
 import Koa from 'koa'
 import koaWebpack from 'koa-webpack'
+import path from 'path'
 import opn from 'opn'
 import output from 'friendly-errors-webpack-plugin/src/output'
+import proxyMiddleware from 'http-proxy-middleware'
 
 import comparePort from './port.js'
 import webpackDevConfig from './webpack.dev.conf.js'
+import iwsConfig from './iwsConfig.js'
+
 const app = new Koa()
-const compiler = webpack(webpackDevConfig);
+const compiler = webpack(webpackDevConfig)
+
+
+const { proxyTable } = iwsConfig
 // const spinner = ora('Server Starting... ');
 // spinner.start();
 export default async () => {
@@ -16,6 +23,13 @@ export default async () => {
     output.clearConsole()
     output.title('info', 'WAIT', 'Start the development server...')
     // handle fallback for HTML5 history API
+
+    if (proxyTable) {
+        proxyTable.forEach(item => {
+            app.use(item.url, proxyMiddleware(item.options))
+        })
+    }
+
     app.use(require('koa-connect-history-api-fallback')())
     // app.use(async (ctx, next) => {
     //     if (!ctx.request.url.startsWith('/js') && !ctx.request.url.startsWith('/css') && !ctx.request.url.startsWith('/assets')) {

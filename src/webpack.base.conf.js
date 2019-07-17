@@ -5,9 +5,10 @@ import webpack from 'webpack'
 const cwdPath = process.cwd()
 // const { rootPath, assetsRoot } = conf
 
-const iwsConfig = require(path.resolve(cwdPath, 'iws.config.js'))
-const envData = iwsConfig[global.env]
-const defaultData = iwsConfig['default'] || {}
+// const iwsConfig = require(path.resolve(cwdPath, 'iws.config.js'))
+// const envData = iwsConfig[global.env]
+// const defaultData = iwsConfig['default'] || {}
+import iwsConfig from './iwsConfig.js'
 // const { alias, externals, isEslint } = iwsConfig
 
 const {
@@ -21,10 +22,7 @@ const {
     isEslint=false,
     entry,
     serviceWorkFile
-} = {
-    ...defaultData,
-    ...envData
-}
+} = dataConfig
 
 const eslintLoader = isEslint ? [
     {
