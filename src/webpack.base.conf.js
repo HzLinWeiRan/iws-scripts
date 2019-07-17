@@ -22,7 +22,7 @@ const {
     isEslint=false,
     entry,
     serviceWorkFile
-} = dataConfig
+} = iwsConfig
 
 const eslintLoader = isEslint ? [
     {

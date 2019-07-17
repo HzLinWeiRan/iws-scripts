@@ -4,7 +4,7 @@ import koaWebpack from 'koa-webpack'
 import path from 'path'
 import opn from 'opn'
 import output from 'friendly-errors-webpack-plugin/src/output'
-import proxyMiddleware from 'http-proxy-middleware'
+import proxyMiddleware from '@2o3t/koa2-proxy-middleware'
 
 import comparePort from './port.js'
 import webpackDevConfig from './webpack.dev.conf.js'
@@ -25,9 +25,14 @@ export default async () => {
     // handle fallback for HTML5 history API
 
     if (proxyTable) {
-        proxyTable.forEach(item => {
-            app.use(item.url, proxyMiddleware(item.options))
-        })
+        function setProxy(item) {
+            app.use(proxyMiddleware(item.filter, item.options))
+        }
+        if (proxyTable.constructor === Array) {
+            proxyTable.forEach(item => setProxy(item))
+        } else {
+            setProxy(proxyTable)
+        }
     }
 
     app.use(require('koa-connect-history-api-fallback')())
