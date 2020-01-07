@@ -15,6 +15,7 @@ const {
     htmlOptionData={},
     defineData={},
     provideData={},
+    pluginsData=[],
     publicPath='/',
     alias={},
     externals={},
@@ -117,7 +118,8 @@ const webpackConfig = {
         new webpack.DefinePlugin({
             publicPath: JSON.stringify(publicPath),
             ...defineData
-        })
+        }),
+        ...pluginsData
     ]
 }
 
