@@ -1,5 +1,6 @@
 import webpack from 'webpack'
 import Koa from 'koa'
+import koaStatic from 'koa-static'
 import koaWebpack from 'koa-webpack'
 import path from 'path'
 import opn from 'opn'
@@ -34,6 +35,8 @@ export default async () => {
             setProxy(proxyTable)
         }
     }
+
+    app.use(koaStatic(process.cwd(), 'www'))
 
     app.use(require('koa-connect-history-api-fallback')())
     // app.use(async (ctx, next) => {

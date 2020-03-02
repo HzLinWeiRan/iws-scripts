@@ -13,7 +13,7 @@ const cwdPath = process.cwd()
 
 const webpackConfig = merge(webpackBaseConfig, {
     mode: 'production',
-    devtool: 'cheap-source-map',
+    // devtool: 'cheap-source-map',
     output: {
         filename: 'static/js/[name].[chunkhash:8].js'
     },
