@@ -1,4 +1,5 @@
 import path from 'path'
+import webpack from 'webpack'
 import merge from 'webpack-merge'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 // import SWPrecacheWebpackPlugin from 'sw-precache-webpack-plugin'
@@ -15,7 +16,8 @@ const webpackConfig = merge(webpackBaseConfig, {
     mode: 'production',
     // devtool: 'cheap-source-map',
     output: {
-        filename: 'static/js/[name].[chunkhash:8].js'
+        filename: 'static/js/[name].[chunkhash:8].js',
+        chunkFilename: '[name].[chunkhash:8].js'
     },
     module: {
         rules: [{
@@ -43,6 +45,11 @@ const webpackConfig = merge(webpackBaseConfig, {
         //     navigateFallback: `${publicPath}index.html`,
         //     stripPrefix: path.resolve(cwdPath, 'dist')
         // }),
+        new webpack.HashedModuleIdsPlugin({
+            hashFunction: 'md5',
+            hashDigest: 'hex',
+            hashDigestLength: 8
+        }),
         new WorkboxWebpackPlugin.GenerateSW({
             cacheId: 'iws-pwa',
             importWorkboxFrom: 'local',
