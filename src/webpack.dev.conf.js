@@ -8,15 +8,26 @@ const webpackConfig = merge(webpackBaseConfig, {
     mode: 'development',
     devtool: 'source-map',
     module: {
-        rules: [{
-            test: /\.s?css$/,
-            use: [
-                'style-loader?sourceMap',
-                'css-loader?sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-                'sass-loader?sourceMap',
-                'postcss-loader?sourceMap'
-            ]
-        }]
+        rules: [
+            {
+                test: /\.s?css$/,
+                use: [
+                    'style-loader?sourceMap',
+                    'css-loader?sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+                    'sass-loader?sourceMap',
+                    'postcss-loader?sourceMap'
+                ]
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    'style-loader?sourceMap',
+                    'css-loader?sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+                    'less-loader?sourceMap&javascriptEnabled',
+                    'postcss-loader?sourceMap'
+                ]
+            }
+        ]
     },
     plugins: [
         // new webpack.HotModuleReplacementPlugin(),

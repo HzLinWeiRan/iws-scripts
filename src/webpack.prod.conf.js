@@ -20,16 +20,27 @@ const webpackConfig = merge(webpackBaseConfig, {
         chunkFilename: '[name].[chunkhash:8].js'
     },
     module: {
-        rules: [{
-            test: /\.s?css$/,
-            include: /(node_modules|src)/,
-            use: [
-                MiniCssExtractPlugin.loader,
-                'css-loader',
-                'sass-loader',
-                'postcss-loader'
-            ]
-        }]
+        rules: [
+            {
+                test: /\.s?css$/,
+                include: /(node_modules|src)/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader',
+                    'postcss-loader'
+                ]
+            },{
+                test: /\.less$/,
+                include: /(node_modules|src)/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'less-loader?javascriptEnabled',
+                    'postcss-loader'
+                ]
+            }
+        ]
     },
     plugins: [
         new MiniCssExtractPlugin({
