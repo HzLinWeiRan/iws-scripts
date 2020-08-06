@@ -14,7 +14,6 @@ import iwsConfig from './iwsConfig.js'
 const app = new Koa()
 const compiler = webpack(webpackDevConfig)
 
-
 const { proxyTable } = iwsConfig
 // const spinner = ora('Server Starting... ');
 // spinner.start();

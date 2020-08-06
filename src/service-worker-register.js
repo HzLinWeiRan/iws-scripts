@@ -14,7 +14,7 @@
     window.addEventListener('load', function () {
         if ('serviceWorker' in navigator &&
             (window.location.protocol === 'https:' || isLocalhost)) {
-            navigator.serviceWorker.register(`${process.publicPath}/service-worker.js`)
+            navigator.serviceWorker.register(`/service-worker.js`)
                 .then(function (registration) {
                     // 更新时发现文件变更从service-work中移除
                     registration.onupdatefound = function () {

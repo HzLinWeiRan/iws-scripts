@@ -40,7 +40,11 @@ const eslintLoader = isEslint ? [
 
 let serviceWorkScript = []
 if (global.cmd === 'build') {
-    serviceWorkScript = [path.resolve(cwdPath, serviceWorkFile || 'src/service-worker-register.js')]
+    if (serviceWorkFile) {
+        serviceWorkScript = [path.resolve(cwdPath, serviceWorkFile)]
+    } else {
+        serviceWorkScript = [path.resolve(__dirname, 'service-worker-register.js')]
+    }
 }
  
 const webpackConfig = {

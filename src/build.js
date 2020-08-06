@@ -4,7 +4,6 @@ import rm from 'rimraf'
 import webpack from 'webpack'
 import webpackProdConf from './webpack.prod.conf.js'
 // const webpackProdConf = require('./webpack.dev.conf.js')
-
 const spinner = ora('build for production... ')
 
 export default () => {
