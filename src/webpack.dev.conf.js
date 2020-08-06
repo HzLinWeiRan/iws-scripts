@@ -11,18 +11,21 @@ const webpackConfig = merge(webpackBaseConfig, {
         rules: [
             {
                 test: /\.s?css$/,
+                include: /(node_modules|src)/,
                 use: [
                     'style-loader?sourceMap',
                     'css-loader?sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+                    'postcss-loader?sourceMap',
                     'sass-loader?sourceMap',
-                    'postcss-loader?sourceMap'
                 ]
             },
             {
                 test: /\.less$/,
+                include: /(node_modules|src)/,
                 use: [
                     'style-loader?sourceMap',
                     'css-loader?sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+                    'postcss-loader?sourceMap',
                     {
                         loader: 'less-loader',
                         options: {
@@ -32,7 +35,6 @@ const webpackConfig = merge(webpackBaseConfig, {
                             }
                         }
                     },
-                    'postcss-loader?sourceMap'
                 ]
             }
         ]

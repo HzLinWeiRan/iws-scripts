@@ -27,8 +27,8 @@ const webpackConfig = merge(webpackBaseConfig, {
                 use: [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
+                    'postcss-loader',
                     'sass-loader',
-                    'postcss-loader'
                 ]
             },{
                 test: /\.less$/,
@@ -36,6 +36,7 @@ const webpackConfig = merge(webpackBaseConfig, {
                 use: [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
+                    'postcss-loader',
                     {
                         loader: 'less-loader',
                         options: {
@@ -44,7 +45,6 @@ const webpackConfig = merge(webpackBaseConfig, {
                             }
                         }
                     },
-                    'postcss-loader'
                 ]
             }
         ]
