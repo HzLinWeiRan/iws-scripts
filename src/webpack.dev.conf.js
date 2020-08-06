@@ -23,7 +23,15 @@ const webpackConfig = merge(webpackBaseConfig, {
                 use: [
                     'style-loader?sourceMap',
                     'css-loader?sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-                    'less-loader?sourceMap&javascriptEnabled',
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            sourceMap: true,
+                            lessOptions: {
+                                javascriptEnabled: true,
+                            }
+                        }
+                    },
                     'postcss-loader?sourceMap'
                 ]
             }
