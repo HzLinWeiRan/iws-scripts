@@ -74,8 +74,8 @@ const webpackConfig = merge(webpackBaseConfig, {
             // importsDirectory: path.resolve(cwdPath, 'dist'),
             // importsDirectory: path.resolve(cwdPath, 'dist'),
             importsDirectory: 'assets',
-            include: [/.(js|css)/],
-            exclude: [/service-wroker\.js/, /index\.html/],
+            // include: [/.(js|css)/],
+            // exclude: [/service-wroker\.js/, /index\.html/],
             // swSrc: 
             swDest: path.resolve(cwdPath, 'dist/service-worker.js'),
             precacheManifestFilename: 'static/precache-manifest.[manifestHash].js',
