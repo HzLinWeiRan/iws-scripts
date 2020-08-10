@@ -14,7 +14,8 @@
     window.addEventListener('load', function () {
         if ('serviceWorker' in navigator &&
             (window.location.protocol === 'https:' || isLocalhost)) {
-            navigator.serviceWorker.register(`/service-worker.js`)
+            const workerFilePath = `${publicPath}/service-worker.js`.replace('//', '/')
+            navigator.serviceWorker.register(workerFilePath)
                 .then(function (registration) {
                     // 更新时发现文件变更从service-work中移除
                     registration.onupdatefound = function () {
@@ -25,7 +26,6 @@
                         if (navigator.serviceWorker.controller) {
                             // The updatefound event implies that registration.installing is set
                             const installingWorker = registration.installing;
-
                             installingWorker.onstatechange = function () {
                                 switch (installingWorker.state) {
                                     case 'installed':
@@ -39,6 +39,7 @@
                                     default:
                                         // Ignore
                                 }
+                                location.reload()
                             };
                         }
                     };
