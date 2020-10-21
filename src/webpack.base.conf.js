@@ -22,6 +22,7 @@ const {
     rules=[],
     isEslint=false,
     entry,
+    svgExcludePath=undefined,
     serviceWorkFile
 } = iwsConfig
 
@@ -87,7 +88,18 @@ const webpackConfig = {
                 }]
             },
             {
-                test: /\.(woff|woff2|svg|ttf|eot|mp3)$/,
+                test: /\.(woff|woff2|ttf|eot|mp3)$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        name: 'static/fonts/[name].[hash:8].[ext]',
+                        limit: 1024
+                    }
+                }]
+            },
+            {
+                test: /\.svg$/,
+                exclude: svgExcludePath,
                 use: [{
                     loader: 'url-loader',
                     options: {

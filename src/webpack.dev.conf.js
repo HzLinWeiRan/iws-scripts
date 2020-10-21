@@ -41,11 +41,15 @@ const webpackConfig = merge(webpackBaseConfig, {
     },
     plugins: [
         // new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.NamedModulesPlugin(),
+        // new webpack.NoEmitOnErrorsPlugin(),
+        // new webpack.NamedModulesPlugin(),
         // new webpack.HotModuleReplacementPlugin(),
         new FriendlyErrorsWebpackPlugin()
-    ]
+    ],
+    optimization: {
+        noEmitOnErrors: true,
+        namedModules: true,
+    }
 })
 
 export default webpackConfig
