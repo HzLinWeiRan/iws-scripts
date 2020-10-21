@@ -22,6 +22,7 @@ const webpackConfig = merge(webpackBaseConfig, {
             {
                 test: /\.less$/,
                 include: /(node_modules|src)/,
+                exclude: /node_modules\/antd/,
                 use: [
                     'style-loader?sourceMap',
                     'css-loader?sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
