@@ -33,6 +33,7 @@ const webpackConfig = merge(webpackBaseConfig, {
             },{
                 test: /\.less$/,
                 include: /(node_modules|src)/,
+                exclude: /node_modules\/antd/,
                 use: [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
